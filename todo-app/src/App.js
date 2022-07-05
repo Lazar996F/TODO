@@ -1,11 +1,16 @@
-import logo from "./logo.svg";
+import TodoList from "./components/TodoList";
+import Form from "./components/Form";
 import "./App.css";
+import { Provider } from "./store/MainContext";
 
 function App() {
   return (
-    <div className="App">
-      <h1>To do</h1>
-    </div>
+    <Provider>
+      <div className="App">
+        <Form />
+        <TodoList />
+      </div>
+    </Provider>
   );
 }
 
