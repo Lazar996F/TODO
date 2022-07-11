@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import { actionType } from "../utils/constants";
+import { ADD_NEW, MARK_DONE, DELETE_TASK, EDIT_TASK } from "./actionTypes";
 import reducer from "./reducer.js";
 
 export const MainContext = createContext();
@@ -12,7 +12,7 @@ export const Provider = (props) => {
   // *** ACTIONS ***
   const addNewTask = (todoTask) => {
     dispatch({
-      type: actionType.ADD_NEW,
+      type: ADD_NEW,
       payload: {
         name: todoTask,
         id: Math.random(),
@@ -30,7 +30,7 @@ export const Provider = (props) => {
     });
 
     dispatch({
-      type: actionType.MARK_DONE,
+      type: MARK_DONE,
       payload: mappedTodos,
     });
   };
@@ -39,14 +39,28 @@ export const Provider = (props) => {
     const mappedTodos = state.todos.filter((task) => task.id !== taskId);
 
     dispatch({
-      type: actionType.DELETE_TASK,
+      type: DELETE_TASK,
+      payload: mappedTodos,
+    });
+  };
+
+  const editTask = (newName, taskId) => {
+    const mappedTodos = state.todos.map((task) => {
+      if (task.id === taskId) {
+        task.name = newName;
+      }
+      return task;
+    });
+
+    dispatch({
+      type: EDIT_TASK,
       payload: mappedTodos,
     });
   };
 
   return (
     <MainContext.Provider
-      value={[state, addNewTask, markTaskAsDone, deleteTask]}
+      value={[state, addNewTask, markTaskAsDone, deleteTask, editTask]}
     >
       {props.children}
     </MainContext.Provider>

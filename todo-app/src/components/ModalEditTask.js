@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -18,8 +18,12 @@ const style = {
   pb: 3,
 };
 
-function ModalEditTask({ open, onClose, selectedTask }) {
-  const [taskName, setTaskName] = useState(selectedTask.name);
+function ModalEditTask({ open, onClose, selectedTask, onSubmit }) {
+  const [taskName, setTaskName] = useState("");
+
+  useEffect(() => {
+    setTaskName(selectedTask.name);
+  }, [selectedTask]);
 
   return (
     <Modal
@@ -29,7 +33,7 @@ function ModalEditTask({ open, onClose, selectedTask }) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={{ ...style, width: 400 }}>
-        <h2 id="parent-modal-title">Change task name</h2>
+        <h2 id="parent-modal-title">Enter task name</h2>
         <TextField
           id="standard-basic"
           variant="standard"
@@ -38,7 +42,10 @@ function ModalEditTask({ open, onClose, selectedTask }) {
         />
         <Button
           variant="text"
-          onClick={() => console.log(">>Save new name", taskName)}
+          onClick={() => {
+            onSubmit(taskName, selectedTask.id);
+            onClose();
+          }}
         >
           <SaveOutlinedIcon />
         </Button>
