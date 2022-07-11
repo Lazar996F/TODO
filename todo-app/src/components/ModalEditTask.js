@@ -33,7 +33,7 @@ function ModalEditTask({ open, onClose, selectedTask, onSubmit }) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={{ ...style, width: 400 }}>
-        <h2 id="parent-modal-title">Enter task name</h2>
+        <h2 id="parent-modal-title">Edit todo's name</h2>
         <TextField
           id="standard-basic"
           variant="standard"

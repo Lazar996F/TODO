@@ -5,6 +5,7 @@ import DoneAllOutlinedIcon from "@mui/icons-material/DoneAllOutlined";
 import Button from "@mui/material/Button";
 import ModalEditTask from "./ModalEditTask";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import Tooltip from "@mui/material/Tooltip";
 
 function TodoList() {
   const [state, _, markTaskAsDone, deleteTask, editTask] =
@@ -24,11 +25,17 @@ function TodoList() {
             {task.name}
             {!task.isDone && (
               <Button>
-                <DoneAllOutlinedIcon onClick={() => markTaskAsDone(task.id)} />
+                <Tooltip title="Mark as done" placement="top-end">
+                  <DoneAllOutlinedIcon
+                    onClick={() => markTaskAsDone(task.id)}
+                  />
+                </Tooltip>
               </Button>
             )}
             <Button onClick={() => deleteTask(task.id)}>
-              <DeleteOutlinedIcon />
+              <Tooltip title="Delete todo" placement="top-end">
+                <DeleteOutlinedIcon />
+              </Tooltip>
             </Button>
             <Button
               onClick={() => {
@@ -39,7 +46,9 @@ function TodoList() {
                 setOpenModal(true);
               }}
             >
-              <EditOutlinedIcon />
+              <Tooltip title="Edit todo" placement="top-end">
+                <EditOutlinedIcon />
+              </Tooltip>
             </Button>
           </li>
         ))}
